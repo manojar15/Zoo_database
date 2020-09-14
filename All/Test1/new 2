@@ -1,0 +1,103 @@
+<html>
+<body>
+    <?php
+        $host = "localhost";
+        $user = "root";
+        $pass = "";
+        $db = "Test1";
+        $dbconn = mysqli_connect($host,$user,$pass,$db) 
+		or 
+		die("Could not connect to database!");
+        mysqli_select_db($dbconn,'Animals');
+        $query="SELECT * FROM Animals";
+        $result=mysqli_query($dbconn,$query);
+        $rownum=mysqli_num_rows($result);
+    ?>
+        <!DOCTYE HTML>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title> Framework Test page</title>
+            <link href="asset/css/main.css" rel="stylesheet" type="text/css">
+        </head>    
+          <style>
+		body{
+			box-shadow:inset 0 0 0 100vw rgba(0,0,0,0.5);
+			background-image:url("back10.jpg");
+			background-blend-mode:screen,difference,lighten;
+			background-repeat:no-repeat;
+			background-size:100% 100%;
+		    }
+		</style>		
+            <h1 style="color:Blue" align= "center">Animal Tables</h1>
+            <div class="row">
+                <div class="col-2" style="text-align: left;background-color: #D6DAF0;">
+                    <h3 style="text-align: center;">Options</h3>
+                    <ul>
+                        <li><a href="animaladd.php">Add</a></li>
+                        <li>Drop all data</li>
+                    </ul>
+                </div>
+                <div class="col-8" style="text-align: center;">
+                    <table  border="1" style="width: 100%; margin-top: 10px;">
+			<style>
+			   table{
+				border:1px;
+				width:100%;
+				margin-top:10px;
+				background-color:white;
+				text-align:center;
+			     }
+			   tr,td{
+				border:1px solid black;
+			     }
+			</style>	
+			          <tr>
+                            <th>Animal_ID</th>
+                            <th>Animal_Nick</th>
+                            <th>Gender</th>
+                            <th>Cage No</th>
+                            <th>Animal Classification</th>
+							<th>Animal age</th>
+							<th>Animal weight</th>
+							<th>Options</th>
+                        </tr>
+                        <style>
+                         td {
+                                text-align: center;
+                            }
+                        </style>
+                        <?php
+                while($row=mysqli_fetch_assoc($result)){
+            ?>
+                            <tr>
+                                <td><?php echo $row['Animal_ID']?></td>
+                                <td><?php echo $row['Animal_Nick']?></td>
+                                <td><?php echo $row['Gender']?></td>
+                                <td><?php echo $row['Cage_No']?></td>
+                                <td><?php echo $row['Animal_ClassID']?></td>
+								<td><?php echo $row['Animal_age']?></td>
+								<td><?php echo $row['Animal_weight']?></td>
+                                <td><p><a href="animaledit.php?animalid=<?php echo $row['Animal_ID']?>">Edit</a> <a href="animaldelete.php?animalid=<?php echo $row['Animal_ID']?>">Delete</a></p></td>
+                            </tr>
+                            <?php
+                }
+            ?>
+                    </table>
+                </div>
+                <div class="col-2" style="background-color: #D6DAF0;">
+                    <h3 style="color:Black" align="center">Tables</h3>
+                    <ul>
+                        <li><a href="home.php">Home</a></li>
+                        <li><a href="cage.php">Cage</a></li>
+                        <li><a href="animal.php">Animal</a></li>
+                        <li><a href="animalclass.php">Animal Class</a></li>
+                        <li><a href="staff.php">Staff</a></li>
+                        <li><a href="shift.php">Shift</a></li>
+                        <li><a href="station.php">Station</a></li>
+                        <li><a href="animalsearch.php">Search For Animals</a></li>
+                   </ul>
+                </div>
+            </div>
+        </body>
+        </html>
